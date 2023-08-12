@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>模拟窗口界面</title>
+    <style>
+        .window {
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            width: 300px;
+            height: 200px;
+            position: absolute;
+        }
+
+        .window-header {
+            background-color: #f0f0f0;
+            padding: 8px;
+            cursor: move;
+        }
+
+        .window-content {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="window" id="window1">
+    <div class="window-header" id="header1">窗口 1</div>
+    <div class="window-content" id="content1">
+        这是窗口 1 的内容。
+    </div>
+</div>
+
+<div class="window" id="window2">
+    <div class="window-header" id="header2">窗口 2</div>
+    <div class="window-content" id="content2">
+        这是窗口 2 的内容。
+    </div>
+</div>
+
+<script>
+    var windows = document.querySelectorAll('.window');
+    windows.forEach(function(window) {
+        var isDragging = false;
+        var resizeCorner = null;
+        var startX, startY, initialX, initialY, initialWidth, initialHeight;
+
+        window.querySelector('.window-header').addEventListener('mousedown', function(e) {
+            isDragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            initialX = window.offsetLeft;
+            initialY = window.offsetTop;
+            bringToFront(window);
+        });
+
+        window.addEventListener('mousedown', function(e) {
+            var rect = window.getBoundingClientRect();
+            var offsetX = e.clientX - rect.left;
+            var offsetY = e.clientY - rect.top;
+
+            if (offsetX <= 10 && offsetY <= 10) {
+                resizeCorner = 'top-left';
+            } else if (offsetX >= rect.width - 10 && offsetY <= 10) {
+                resizeCorner = 'top-right';
+            } else if (offsetX <= 10 && offsetY >= rect.height - 10) {
+                resizeCorner = 'bottom-left';
+            } else if (offsetX >= rect.width - 10 && offsetY >= rect.height - 10) {
+                resizeCorner = 'bottom-right';
+            }
+        });
+
+        window.addEventListener('mousemove', function(e) {
+            if (isDragging) {
+                var deltaX = e.clientX - startX;
+                var deltaY = e.clientY - startY;
+
+                window.style.left = (initialX + deltaX) + 'px';
+                window.style.top = (initialY + deltaY) + 'px';
+            }
+
+            if (resizeCorner) {
+                var deltaX = e.clientX - startX;
+                var deltaY = e.clientY - startY;
+
+                switch (resizeCorner) {
+                    case 'top-left':
+                        window.style.width = (initialWidth - deltaX) + 'px';
+                        window.style.height = (initialHeight - deltaY) + 'px';
+                        window.style.left = (initialX + deltaX) + 'px';
+                        window.style.top = (initialY + deltaY) + 'px';
+                        break;
+                    case 'top-right':
+                        window.style.width = (initialWidth + deltaX) + 'px';
+                        window.style.height = (initialHeight - deltaY) + 'px';
+                        window.style.top = (initialY + deltaY) + 'px';
+                        break;
+                    case 'bottom-left':
+                        window.style.width = (initialWidth - deltaX) + 'px';
+                        window.style.height = (initialHeight + deltaY) + 'px';
+                        window.style.left = (initialX + deltaX) + 'px';
+                        break;
+                    case 'bottom-right':
+                        window.style.width = (initialWidth + deltaX) + 'px';
+                        window.style.height = (initialHeight + deltaY) + 'px';
+                        break;
+                }
+            }
+        });
+
+        window.addEventListener('mouseup', function() {
+            isDragging = false;
+            resizeCorner = null;
+        });
+
+        var header = window.querySelector('.window-header');
+        var content = window.querySelector('.window-content');
+
+        header.addEventListener('dblclick', function() {
+            var titleInput = document.createElement('input');
+            titleInput.value = header.textContent;
+            titleInput.style.width = '100%';
+            titleInput.style.border = 'none';
+            titleInput.style.padding = '5px';
+
+            header.innerHTML = '';
+            header.appendChild(titleInput);
+
+            titleInput.focus();
+
+            titleInput.addEventListener('blur', function() {
+                header.innerHTML = titleInput.value;
+            });
+        });
+
+        content.addEventListener('dblclick', function() {
+            var contentInput = document.createElement('textarea');
+            contentInput.value = content.textContent;
+            contentInput.style.width = '100%';
+            contentInput.style.height = '100px';
+            contentInput.style.border = 'none';
+            contentInput.style.padding = '5px';
+
+            content.innerHTML = '';
+            content.appendChild(contentInput);
+
+            contentInput.focus();
+
+            contentInput.addEventListener('blur', function() {
+                content.innerHTML = contentInput.value;
+            });
+        });
+    });
+
+    function bringToFront(window) {
+        var windows = document.querySelectorAll('.window');
+        windows.forEach(function(w) {
+            w.style.zIndex = 1;
+        });
+        window.style.zIndex = 2;
+    }
+</script>
+
+</body>
+</html>
