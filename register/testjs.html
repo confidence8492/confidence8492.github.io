@@ -1,0 +1,48 @@
+<!-- testjs.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submitted Data</title>
+</head>
+<body>
+    <center>
+        <h1>Submitted Data</h1>
+    </center>
+    <div id="dataDisplay">
+        <center>
+            <p>Name: <span id="name"></span></p>
+        </center>
+
+
+
+
+
+
+
+
+
+
+
+        <center>
+            <p>Email: <span id="email"></span></p>
+    </center>
+</div>
+
+    <script>// test.js
+document.addEventListener("DOMContentLoaded", function() {
+    const dataDisplay = document.getElementById("dataDisplay");
+    const nameSpan = document.getElementById("name");
+    const emailSpan = document.getElementById("email");
+
+    const submittedData = localStorage.getItem("submittedData");
+    if (submittedData) {
+        const data = JSON.parse(submittedData);
+        nameSpan.textContent = data.name;
+        emailSpan.textContent = data.email;
+    }
+});
+</script>
+</body>
+</html>
