@@ -1,0 +1,52 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Submission</title>
+</head>
+<body>
+    <center><h1>Data Submission Form</h1></center>
+    <center><form id="dataForm" action="testjs.html" method="get">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+
+
+
+
+
+
+
+
+
+</center>
+
+    <script>// index.js
+document.addEventListener("DOMContentLoaded", function() {
+    const dataForm = document.getElementById("dataForm");
+
+    dataForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+
+        const data = {
+            name: name,
+            email: email
+        };
+
+        localStorage.setItem("submittedData", JSON.stringify(data));
+
+        window.location.href = "https://confidence8492.github.io/register/testjs.html";
+    });
+});
+</script>
+</body>
+</html>
