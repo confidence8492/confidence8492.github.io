@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>轉帳UI與自動增加資產</title>
+</head>
+<body>
+  <h1>轉帳UI與自動增加資產</h1>
+  <p>A帳號資產數字：<span id="aBalance">10,000 元</span></p>
+  <p>B帳號資產數字：<span id="bBalance">0 元</span></p>
+  
+  <label for="transferAmount">轉帳金額：</label>
+  <input type="number" id="transferAmount" placeholder="輸入金額">
+  <button id="transferButton">執行轉帳</button>
+  
+  <script>
+    // 初始資產
+    let aBalance = 10000;
+    let bBalance = 0;
+    
+    // 更新顯示資產數字
+    function updateBalances() {
+      const aBalanceDisplay = document.querySelector("#aBalance");
+      const bBalanceDisplay = document.querySelector("#bBalance");
+      aBalanceDisplay.textContent = `${aBalance.toLocaleString()} 元`;
+      bBalanceDisplay.textContent = `${bBalance.toLocaleString()} 元`;
+    }
+    
+    // 執行轉帳
+    document.getElementById("transferButton").addEventListener("click", function() {
+      const transferAmountInput = document.getElementById("transferAmount");
+      const transferAmount = parseInt(transferAmountInput.value);
+      
+      if (isNaN(transferAmount) || transferAmount <= 0) {
+        alert("請輸入有效的金額");
+      } else if (aBalance >= transferAmount) {
+        aBalance -= transferAmount;
+        bBalance += transferAmount;
+        updateBalances();
+      } else {
+        alert("A帳號資產不足");
+      }
+    });
+    
+    const increaseFactor = 1000000000000;
+    let increaseCount = 1;
+
+
+
+
+
+    // 每秒自動增加1億以上資產
+    setInterval(function() {
+      const increaseAmount = Math.floor(Math.random() * 90000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000) + 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000; // 1億到1億+9000萬之間的數字
+      aBalance += increaseAmount;
+      updateBalances();
+    }, 1000); // 每秒執行一次
+    
+    // 初始更新一次顯示
+    updateBalances();
+  </script>
+</body>
+</html>
