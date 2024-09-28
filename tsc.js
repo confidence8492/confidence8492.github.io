@@ -1,9 +1,9 @@
 function tsc(){
   console.log("hello, world");
 }
-if(typeof tsc === 'function'){
-        global.tsc = tsc;
-}
-const tsc = function(){
-        tsc();
-};
+//if(typeof tsc === 'function'){
+        //global.tsc = tsc;
+//}
+//const tsc = function(){
+        //tsc();
+//};
