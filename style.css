@@ -28,10 +28,12 @@ h1 {
     color: #007bff;
     font-size: 18px;
     border: 2px solid #007bff;
+    text-align: center;
     cursor: pointer;
     position: relative;
     z-index: 2;
     transition: all 0.3s ease;
+    display: inline-block;
 }
 
 .special-button:hover {
