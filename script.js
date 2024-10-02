@@ -1,9 +1,9 @@
 const content = document.getElementById('content');
 const categories = {
     openSource: `<ul>
-                    <li>Linux</li>
-                    <li>Git</li>
-                    <li>Node.js</li>
+                    Linux
+                    Git
+                    Node.js
                 </ul>`,
     hardware: `<ul>
                     <li>Raspberry Pi</li>
