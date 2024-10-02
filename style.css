@@ -2,7 +2,19 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     padding: 50px;
-    background-color: #f4f4f4;
+    animation: backgroundFade 14s infinite; /* 14秒內完成一次完整的漸入漸出循環 */
+}
+
+@keyframes backgroundFade {
+    0% {
+        background-color: rgba(0, 0, 0, 0); /* 開始時透明 */
+    }
+    50% {
+        background-color: rgba(200, 200, 200, 0.5); /* 7秒內變成淺灰色 */
+    }
+    100% {
+        background-color: rgba(0, 0, 0, 0); /* 14秒內淡出回到透明 */
+    }
 }
 
 h1 {
@@ -12,7 +24,7 @@ h1 {
 #categories {
     display: flex;
     justify-content: center;
-    gap: 40px; /* 增加間距 */
+    gap: 40px;
     margin: 0 auto;
 }
 
