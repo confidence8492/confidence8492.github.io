@@ -11,15 +11,13 @@ h1 {
 
 #categories {
     display: flex;
-    justify-content: space-between;
-    width: 400px;
+    justify-content: center;
+    gap: 40px; /* 增加間距 */
     margin: 0 auto;
 }
 
 .button-container {
     position: relative;
-    flex: 1;
-    margin: 0 10px;
 }
 
 .special-button {
