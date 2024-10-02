@@ -19,6 +19,7 @@ h1 {
 .button-container {
     position: relative;
     flex: 1;
+    margin: 0 10px;
 }
 
 .special-button {
